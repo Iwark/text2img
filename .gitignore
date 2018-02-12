@@ -1,0 +1,5 @@
+bin/
+test.jpg
+fonts/
+.DS_Store
+vendor/
