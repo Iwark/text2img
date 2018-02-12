@@ -13,6 +13,12 @@ package `text2img` lets you generate an image from a text. It's especially usefu
 
 If you use `text2img` from your command line, install the binary from [releases](https://github.com/Iwark/text2img/releases).
 
+Or use `go get`:
+
+```
+go get github.com/Iwark/text2img/cmd/text2img
+```
+
 ### Go code
 
 If you use `text2img` from your go code, install the package by `go get`.
