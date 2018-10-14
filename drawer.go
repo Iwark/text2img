@@ -115,6 +115,7 @@ func (d *drawer) Draw(text string) (img *image.RGBA, err error) {
 	return
 }
 
+// SetBackgroundImage sets the specific background image
 func (d *drawer) SetBackgroundImage(imagePath string) (err error) {
 	src, err := os.Open(imagePath)
 	if err != nil {
