@@ -6,6 +6,7 @@ import (
 	"image/color"
 	"image/draw"
 	"io/ioutil"
+	"os"
 
 	"github.com/golang/freetype"
 	"github.com/golang/freetype/truetype"
@@ -24,12 +25,13 @@ type Drawer interface {
 
 // Params is parameters for NewDrawer function
 type Params struct {
-	Width           int
-	Height          int
-	FontPath        string
-	FontSize        float64
-	BackgroundColor color.RGBA
-	TextColor       color.RGBA
+	Width               int
+	Height              int
+	FontPath            string
+	BackgroundImagePath string
+	FontSize            float64
+	BackgroundColor     color.RGBA
+	TextColor           color.RGBA
 }
 
 // NewDrawer returns Drawer interface
@@ -50,6 +52,7 @@ func NewDrawer(params Params) (Drawer, error) {
 
 type drawer struct {
 	BackgroundColor *image.Uniform
+	BackgroundImage *image.Image
 	Font            *truetype.Font
 	FontSize        float64
 	Height          int
@@ -92,6 +95,20 @@ func (d *drawer) Draw(text string) (img *image.RGBA, err error) {
 	// 	Dot:  point,
 	// }
 	// fd.DrawString(text)
+	return
+}
+
+func (d *drawer) SetBackgroundImage(imagePath string) (err error) {
+	src, err := os.Open("./sample.png")
+	if err != nil {
+		return
+	}
+
+	img, _, err := image.Decode(src)
+	if err != nil {
+		return
+	}
+	d.BackgroundImage = &img
 	return
 }
 
