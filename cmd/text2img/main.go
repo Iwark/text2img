@@ -9,13 +9,15 @@ import (
 )
 
 var fontPath = flag.String("fontpath", "", "path to the font")
+var backgroundImagePath = flag.String("bgimg", "", "path to the background image")
 var output = flag.String("output", "image.jpg", "path to the output image")
 var text = flag.String("text", "", "text to draw")
 
 func main() {
 	flag.Parse()
 	d, err := text2img.NewDrawer(text2img.Params{
-		FontPath: *fontPath,
+		FontPath:            *fontPath,
+		BackgroundImagePath: *backgroundImagePath,
 	})
 	if err != nil {
 		panic(err.Error())

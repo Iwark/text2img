@@ -31,9 +31,21 @@ $ go get github.com/Iwark/text2img
 
 ### Binary
 
+When using a random color background image:
+
 ```
 $ text2img -fontpath="fonts/font.ttf" -output="test.jpg" -text="text2img generates the image from a text"
 ```
+
+Using a specific image file:
+
+```
+$ text2img -fontpath="fonts/font.ttf" -output="test.jpg" -text="text2img generates the image from a text" -bgimg="gophers.jpg"
+```
+
+![bgimgEx](https://i.imgur.com/MWNV44f.jpg)
+
+([The Go gopher](https://blog.golang.org/gopher) was designed by [Renée French.](http://reneefrench.blogspot.com/))
 
 ### Go code
 
