@@ -22,6 +22,7 @@ type Drawer interface {
 	SetColors(color.RGBA, color.RGBA)
 	SetFontPath(string) error
 	SetFontSize(float64)
+	SetTextPos(int, int)
 	SetSize(int, int)
 }
 
@@ -34,6 +35,8 @@ type Params struct {
 	FontSize            float64
 	BackgroundColor     color.RGBA
 	TextColor           color.RGBA
+	TextPosVertical     int
+	TextPosHorizontal   int
 }
 
 // NewDrawer returns Drawer interface
@@ -62,13 +65,15 @@ func NewDrawer(params Params) (Drawer, error) {
 }
 
 type drawer struct {
-	BackgroundColor *image.Uniform
-	BackgroundImage image.Image
-	Font            *truetype.Font
-	FontSize        float64
-	Height          int
-	TextColor       *image.Uniform
-	Width           int
+	BackgroundColor   *image.Uniform
+	BackgroundImage   image.Image
+	Font              *truetype.Font
+	FontSize          float64
+	Height            int
+	TextColor         *image.Uniform
+	TextPosVertical   int
+	TextPosHorizontal int
+	Width             int
 
 	autoFontSize bool
 }
@@ -99,7 +104,7 @@ func (d *drawer) Draw(text string) (img *image.RGBA, err error) {
 		c.SetHinting(font.HintingNone)
 
 		textHeight := int(c.PointToFixed(d.FontSize) >> 6)
-		pt := freetype.Pt((d.Width-textWidth)/2, (d.Height+textHeight)/2)
+		pt := freetype.Pt((d.Width-textWidth)/2+d.TextPosHorizontal, (d.Height+textHeight)/2+d.TextPosVertical)
 		_, err = c.DrawString(text, pt)
 		return
 	}
@@ -167,6 +172,12 @@ func (d *drawer) SetFontSize(fontSize float64) {
 		return
 	}
 	d.autoFontSize = true
+}
+
+// SetFontPos sets the fontPos
+func (d *drawer) SetTextPos(textPosVertical, textPosHorizontal int) {
+	d.TextPosVertical = textPosVertical
+	d.TextPosHorizontal = textPosHorizontal
 }
 
 // SetColors sets the size
