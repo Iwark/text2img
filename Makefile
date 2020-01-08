@@ -5,14 +5,13 @@ LDFLAGS := -X 'main.version=$(VERSION)' -X 'main.date=$(DATE)'
 
 # Setup
 setup:
-	  go get github.com/golang/lint/golint
+	  go get golang.org/x/lint/golint
 	  go get golang.org/x/tools/cmd/goimports
 	  go get github.com/Songmu/make2help/cmd/make2help
-	  go get github.com/golang/dep
 
 # Install dependencies
 deps: setup
-	  dep ensure
+	  go get ./...
 
 # Build
 build: deps
