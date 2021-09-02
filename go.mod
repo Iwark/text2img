@@ -1,4 +1,4 @@
-module github.com/text2img/text2img
+module github.com/Iwark/text2img
 
 go 1.13
 
